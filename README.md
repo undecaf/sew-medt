@@ -48,6 +48,7 @@ Ist ein Spring Bean definiert, der das <code>UserDetailsService</code> implement
 + Es werden kein Benutzer <code>user</code> und kein Zufallspasswort erzeugt.
 + Stattdessen konsultiert Spring Security bei jedem Anmeldeversuch das <code>UserDetailsService</code>. Das
 gespeicherte Passwort muss als bcrypt-Hash vorliegen.
++ Unter `/api/me` werden Benutzername und Rolle der angemeldeten Benutzerin ausgeliefert.
 + Der Adapter <code>at.rennweg.htl.sew.autoconfig.UserInfo</code> erspart es, für das 
 <code>UserDetailsService</code> auch das umfangreiche <code>UserDetails</code>-Interface
 implementieren zu müssen. Er reduziert diese Arbeit auf das Implementieren von zwei Methoden.

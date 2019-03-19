@@ -3,7 +3,7 @@
   <groupId>at.rennweg.htl</groupId>
   <artifactId>autoconfig</artifactId>
   <versioning>
-    <release>1.1.1-RELEASE</release>
+    <release>1.2.0-RELEASE</release>
     <versions>
       <version>1.0.0-RELEASE</version>
       <version>1.0.1-RELEASE</version>
@@ -17,7 +17,8 @@
       <version>1.1.0-RELEASE</version>
       <version>1.1.1-RELEASE</version>
       <version>1.1.2-RELEASE</version>
+      <version>1.2.0-RELEASE</version>
     </versions>
-    <lastUpdated>20190125133938</lastUpdated>
+    <lastUpdated>20190319122736</lastUpdated>
   </versioning>
 </metadata>

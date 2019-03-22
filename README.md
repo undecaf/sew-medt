@@ -35,7 +35,7 @@ folgende Spring Boot-Einstellungen wirksam:
 
 ### Authentifizierung, Autorisierung
 Sofern keine andere Authentifizierungsmethode definiert ist, kann man sich nur als <code>user</code>
-[mit einem Passwort anmelden](#anmeldung-mit-benutzername-und-passwort), das bei jedem Start zufällig festgelegt und an der Konsole protokolliert wird.
+mit einem Passwort anmelden, das bei jedem Start zufällig bestimmt und an der Konsole protokolliert wird.
 
 ##### Allgemeines
 + Die Anmeldung erfolgt durch <code>POST</code> von <code>username</code> und
@@ -66,12 +66,11 @@ annotiert werden. Dazu muss die Entity zusätzlich mit
 <code>@EntityListeners(AuditingEntityListener.class)</code> annotiert werden.
 
 ##### Anmeldung über OAuth2
-Die OAuth2-Provider <code>github</code>, <code>google</code>, <code>facebook</code> und
-<code>microsoft</code> (Azure Active Directory) werden unterstützt. Zumindest diese
-Properties müssen definiert werden:
+Die OAuth2-Provider <code>github</code>, <code>google</code>, <code>facebook</code>
+<code>okta</code> und <code>microsoft</code> (Azure Active Directory) werden unterstützt.
+Zumindest diese Properties (und für Microsoft einige weitere) müssen definiert werden:
 + <code>spring.security.oauth2.client.registration.{provider}.client-id</code>
 + <code>spring.security.oauth2.client.registration.{provider}.client-secret</code>
-+ <code>spring.security.oauth2.client.registration.{provider}.redirect-uri-template</code>
 
 Dies hat zur Folge:
 + Den Authentifizierungsvorgang startet man durch ein <code>GET</code> auf 

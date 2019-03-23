@@ -31,58 +31,58 @@ Wird dieses Artefakt im POM eines Projekts als Abhängigkeit angegeben, so werde
 folgende Spring Boot-Einstellungen wirksam:
 
 ### HTTP-Server
-+ Der Server läuft auf <code>127.0.0.1:8080</code>.
-+ Auf <code>http://127.0.0.1:8080/index.html</code> wird ein Hinweistext ausgeliefert.
++ Der Server läuft auf `127.0.0.1:8080`.
++ Auf `http://127.0.0.1:8080/index.html` wird ein Hinweistext ausgeliefert.
 
 ### Authentifizierung, Autorisierung
 
 #### Anmeldung mit Benutzernamen und Passwort
 Dafür muss
-1. die Benutzer-<code>@Entity</code> das Interface <code>UserInfo</code> implementieren,
-1. das zugehörige REST-Repository muss von <code>UserInfoRepository</code> abgeleitet
+1. die Benutzer-`@Entity` das Interface `UserInfo` implementieren,
+1. das zugehörige REST-Repository muss von `UserInfoRepository` abgeleitet
 werden und
-1. dort muss die Methode <code>toUser()</code> implementiert werden.
+1. dort muss die `default`-Methode `toUser()` implementiert werden.
 
 Dies bewirkt:
-+ Die Anmeldung erfolgt durch <code>POST</code> von <code>username</code> und
-<code>password</code> auf <code>/login</code>
-(Property <code>sew.login</code> in <code>application.properties</code>).
++ Die Anmeldung erfolgt durch `POST` von `username` und
+`password` auf `/login`
+(Property `sew.login` in `application.properties`).
 Die JSON-Response enthält Details zur angemeldeten Benutzerin.
-+ Bei jedem Anmeldeversuch wird im <code>UserDetailsService</code> der Benutzer zum Benutzernamen ermittelt.
-Das gespeicherte Passwort muss als BCrypt-Hash vorliegen.
-+ Die Benutzerdetails stehen später auch an <code>/api/me</code> zur Verfügung.
-+ Zum Abmelden dient ein <code>POST</code> auf <code>/logout</code> (Property <code>sew.logout</code>).
-+ Nach 600 Sekunden Inaktivität (Property <code>sew.session-timeout</code>) wird man automatisch abgemeldet.
-+ In der Response wird das Zugriffstoken sowohl im <code>SESSION</code>-Cookie gesetzt als auch im
-<code>x-auth-token</code>-Header geliefert. In Requests wird es aber nur im <code>x-auth-token</code>-Header
++ Bei jedem Anmeldeversuch ermittelt das `UserInfoRepository` den Benutzer 
+zum Anmelde-Benutzernamen. Das Passwort muss als BCrypt-Hash gespeichert sein.
++ Die Benutzerdetails stehen später auch an `/api/me` zur Verfügung.
++ Zum Abmelden dient ein `POST` auf `/logout` (Property `sew.logout`).
++ Nach 600 Sekunden Inaktivität (Property `sew.session-timeout`) wird man automatisch abgemeldet.
++ In der Response wird das Zugriffstoken sowohl im `SESSION`-Cookie gesetzt als auch im
+`x-auth-token`-Header geliefert. In Requests wird es aber nur im `x-auth-token`-Header
 akzeptiert.
-+ Alle Pfade sind ohne Authentifizierung zugänglich, d.h. nur <i>Methoden</i> 
-können mit <code>@PreAuthorize</code> abgesichert werden.
-+ Auditing: stehen Benutzer in einer <code>@OneToMany</code>-Beziehung 
-zu einer anderen <code>@Entity</code>, so können sie dort mit <code>@CreatedBy</code> 
-oder <code>@LastModifiedBy</code> annotiert werden. 
++ Alle _Pfade_ sind ohne Authentifizierung zugänglich, d.h. nur _Methoden_ 
+können mit `@PreAuthorize` abgesichert werden.
++ Auditing: stehen Benutzer in einer `@OneToMany`-Beziehung 
+zu einer anderen `@Entity`, so können sie dort mit `@CreatedBy` 
+oder `@LastModifiedBy` annotiert werden. 
 Dazu muss die andere Entity zusätzlich mit 
-<code>@EntityListeners(AuditingEntityListener.class)</code> annotiert werden.
+`@EntityListeners(AuditingEntityListener.class)` annotiert werden.
 
 #### Anmeldung über OAuth2
-Die OAuth2-Provider <code>github</code>, <code>google</code>, <code>facebook</code>
-<code>okta</code> und <code>microsoft</code> (Azure Active Directory) werden unterstützt.
+Die OAuth2-Provider `github`, `google`, `facebook`
+`okta` und `microsoft` (Azure Active Directory) werden unterstützt.
 
-Die Konfiguration erfolgt über die in <code>src/main/resources/application-oauth2.properties</code>
+Die Konfiguration erfolgt über die in `src/main/resources/application-oauth2.properties`
 angeführten Properties. Dies bewirkt folgende Unterschiede gegenüber der Anmeldung
 mit Benutzernamen und Passwort:
-+ Den Authentifizierungsvorgang startet man durch ein <code>GET</code> auf 
-<code>/oauth2/authorization/{provider}</code>. Daraufhin wird der Browser zur Anmeldeseite
++ Den Authentifizierungsvorgang startet man durch ein `GET` auf 
+`/oauth2/authorization/{provider}`. Daraufhin wird der Browser zur Anmeldeseite
 des OAuth2-Providers umgeleitet.
-+ Nach erfolgreicher Authentifizierung wird der ursprüngliche <code>GET</code>-Request schließlich
-auf den im Property <code>sew.oauth2-login-success</code> angegebenen Pfad umgeleitet.
++ Nach erfolgreicher Authentifizierung wird der ursprüngliche `GET`-Request schließlich
+auf den im Property `sew.oauth2-login-success` angegebenen Pfad umgeleitet.
 
 ### REST-API und CORS
-Um CORS zu ermöglichen, gibt man die <code>Allowed-Origins</code> als Liste im Property 
-<code>sew.allowed-origins</code> an. Andernfalls wird SOP erzwungen. 
+Um CORS zu ermöglichen, gibt man die `Allowed-Origins` als Liste im Property 
+`sew.allowed-origins` an. Andernfalls wird SOP erzwungen. 
 
 ### Profile
-+ <code>logging</code> erzeugt ausführliche Debugging-Protokolle.
-+ <code>tuning</code> optimiert Datenbankzugriffe; jede cachebare <code>@Entity</code> 
-muss zusätzlich mit <code>@javax.persistence.Cacheable</code> annotiert werden.
++ `logging` erzeugt ausführliche Debugging-Protokolle.
++ `tuning` optimiert Datenbankzugriffe; jede cachebare `@Entity` 
+muss zusätzlich mit `@javax.persistence.Cacheable` annotiert werden.
 

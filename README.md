@@ -18,7 +18,8 @@ Als weitere Abhängigkeiten sind enthalten:
 + Spring Session
 + OAuth2-Client für Microsoft Azure AD
 + Jirutka Collection Validators
-+ H2-Datenbank
++ JDBC-Treiber für H2, PostgreSQL, MS SQL Server, MariaDB und MySQL 
++ Embedded H2-Datenbank
 + Hibernate
 + Ehcache
 
@@ -31,8 +32,8 @@ Wird dieses Artefakt im POM eines Projekts als Abhängigkeit angegeben, so werde
 folgende Spring Boot-Einstellungen wirksam:
 
 ### HTTP-Server
-+ Der Server läuft auf `127.0.0.1:8080`.
-+ Auf `http://127.0.0.1:8080/index.html` wird ein Hinweistext ausgeliefert.
++ Der Server läuft auf `localhost:8080`.
++ Auf `http://localhost:8080/index.html` wird ein Hinweistext ausgeliefert.
 
 ### Authentifizierung, Autorisierung
 
@@ -65,21 +66,27 @@ Dazu muss die andere Entity zusätzlich mit
 `@EntityListeners(AuditingEntityListener.class)` annotiert werden.
 
 #### Anmeldung über OAuth2
-Die OAuth2-Provider `github`, `google`, `facebook`
+Die OAuth2-Provider `github`, `google`, `facebook`,
 `okta` und `microsoft` (Azure Active Directory) werden unterstützt.
 
 Die Konfiguration erfolgt über die in `src/main/resources/application-oauth2.properties`
-angeführten Properties. Dies bewirkt folgende Unterschiede gegenüber der Anmeldung
-mit Benutzernamen und Passwort:
+beispielhaft angeführten Properties. Dies bewirkt folgende Unterschiede gegenüber der 
+Anmeldung mit Benutzernamen und Passwort:
 + Den Authentifizierungsvorgang startet man durch ein `GET` auf 
 `/oauth2/authorization/{provider}`. Daraufhin wird der Browser zur Anmeldeseite
 des OAuth2-Providers umgeleitet.
 + Nach erfolgreicher Authentifizierung wird der ursprüngliche `GET`-Request schließlich
 auf den im Property `sew.oauth2-login-success` angegebenen Pfad umgeleitet.
 
+### Datenbankanbindung
+In `src/main/resources/application-db.properties` sind die Properties aufgezählt, die
+für die Anbindung diverser Datenbanken benötigt werden. 
+
 ### REST-API und CORS
-Um CORS zu ermöglichen, gibt man die `Allowed-Origins` als Liste im Property 
-`sew.allowed-origins` an. Andernfalls wird SOP erzwungen. 
+Das REST-API ist unter dem Pfad `/api`erreichbar (Property `spring.data.rest.base-path`).
+
+Um CORS zu ermöglichen, gibt man alle `Allowed-Origins` als Liste in 
+`sew.allowed-origins` an. Andernfalls wird die SOP erzwungen. 
 
 ### Profile
 + `logging` erzeugt ausführliche Debugging-Protokolle.

@@ -38,11 +38,10 @@ folgende Spring Boot-Einstellungen wirksam:
 ### Authentifizierung, Autorisierung
 
 #### Anmeldung mit Benutzernamen und Passwort
-Dafür muss
-1. die Benutzer-`@Entity` das Interface `UserInfo` implementieren,
-1. das zugehörige REST-Repository muss von `UserInfoRepository` abgeleitet
-werden und
-1. dort muss die `default`-Methode `toUser()` implementiert werden.
+Voraussetzungen:
+1. Man muss mit der Benutzer-`@Entity` das Interface `UserInfo` implementieren.
+1. Das zugehörige REST-Repository muss man von `UserInfoRepository<T>` ableiten statt von
+z.B. `PagingAndSortingRepository<T,ID>`.
 
 Dies bewirkt:
 + Die Anmeldung erfolgt durch `POST` von `username` und
@@ -67,7 +66,9 @@ Dazu muss die andere Entity zusätzlich mit
 
 #### Anmeldung über OAuth2
 Die OAuth2-Provider `github`, `google`, `facebook`,
-`okta` und `microsoft` (Azure Active Directory) werden unterstützt.
+`okta` und `microsoft` (Azure Active Directory) werden unterstützt. Die Voraussetzungen sind
+dieselben wie für die 
+[Anmeldung mit Benutzernamen und Passwort](#anmeldung-mit-benutzernamen-und-passwort).
 
 Die Konfiguration erfolgt über die in `src/main/resources/application-oauth2.properties`
 beispielhaft angeführten Properties. Dies bewirkt folgende Unterschiede gegenüber der 
@@ -77,6 +78,9 @@ Anmeldung mit Benutzernamen und Passwort:
 des OAuth2-Providers umgeleitet.
 + Nach erfolgreicher Authentifizierung wird der ursprüngliche `GET`-Request schließlich
 auf den im Property `sew.oauth2-login-success` angegebenen Pfad umgeleitet.
++ Nach der _ersten_ erfolgreichen Authentifizierung wird eine Benutzer-Entity im 
+`UserInfoRepository` gespeichert. Diese Entity steht als `principal` in `@PreAuthorize`
+zur Verfügung.
 
 ### Datenbankanbindung
 In `src/main/resources/application-db.properties` sind die Properties aufgezählt, die

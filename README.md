@@ -10,12 +10,14 @@ und die verfügbaren Spring Boot Starter. Dies sind:
 + REST Repositories
 + Jersey (JAX-RS)
 + Security
++ AOP
 + OAuth2-Client für Github, Google, Facebook und Okta
 + Test
 + Configuration Processor
 
 Als weitere Abhängigkeiten sind enthalten:
 + Spring Session
++ AspectJ für „Load-time weaving“
 + OAuth2-Client für Microsoft Azure AD
 + Jirutka Collection Validators
 + JDBC-Treiber für H2, PostgreSQL, MS SQL Server, MariaDB und MySQL 
@@ -35,7 +37,7 @@ folgende Spring Boot-Einstellungen wirksam:
 + Der Server läuft auf `localhost:8080`.
 + Auf `http://localhost:8080/index.html` wird ein Hinweistext ausgeliefert.
 
-### Authentifizierung, Autorisierung
+### Authentifizierung
 
 #### Anmeldung mit Benutzernamen und Passwort
 Voraussetzungen:
@@ -56,13 +58,6 @@ zum Anmelde-Benutzernamen. Das Passwort muss als BCrypt-Hash gespeichert sein.
 + In der Response wird das Zugriffstoken sowohl im `SESSION`-Cookie gesetzt als auch im
 `x-auth-token`-Header geliefert. In Requests wird es aber nur im `x-auth-token`-Header
 akzeptiert.
-+ Alle _Pfade_ sind ohne Authentifizierung zugänglich, d.h. nur _Methoden_ 
-können mit `@PreAuthorize` abgesichert werden.
-+ Auditing: stehen Benutzer in einer `@OneToMany`-Beziehung 
-zu einer anderen `@Entity`, so können sie dort mit `@CreatedBy` 
-oder `@LastModifiedBy` annotiert werden. 
-Dazu muss die andere Entity zusätzlich mit 
-`@EntityListeners(AuditingEntityListener.class)` annotiert werden.
 
 #### Anmeldung über OAuth2
 Die OAuth2-Provider `github`, `google`, `facebook`,
@@ -81,6 +76,17 @@ auf den im Property `sew.oauth2-login-success` angegebenen Pfad umgeleitet.
 + Nach der _ersten_ erfolgreichen Authentifizierung wird eine Benutzer-Entity im 
 `UserInfoRepository` gespeichert. Diese Entity steht als `principal` in `@PreAuthorize`
 zur Verfügung.
+
+### Autorisierung
++ Alle _Pfade_ sind ohne Authentifizierung zugänglich, d.h. nur _Methoden_ 
+können mit `@PreAuthorize` abgesichert werden.
++ Um `@PreAuthorize` in einer Klasse (z.B. Entity) zu verwenden, die kein Spring-Bean ist,
+muss diese mit `@Configurable` annotiert werden.
++ Auditing: stehen Benutzer in einer `@OneToMany`-Beziehung 
+zu einer anderen `@Entity`, so können sie dort mit `@CreatedBy` 
+oder `@LastModifiedBy` annotiert werden. 
+Dazu muss die andere Entity zusätzlich mit 
+`@EntityListeners(AuditingEntityListener.class)` annotiert werden.
 
 ### Datenbankanbindung
 In `src/main/resources/application-db.properties` sind die Properties aufgezählt, die

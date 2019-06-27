@@ -33,6 +33,12 @@ Plugins:
 Wird dieses Artefakt im POM eines Projekts als Abhängigkeit angegeben, so werden 
 folgende Spring Boot-Einstellungen wirksam:
 
+### Load-time weaving (LTW) mit AspectJ
++ LTW wird auf Klassen inner- oder unterhalb des Pakets `server`
+  angewendet, ohne dass ein externer Instrumentation-Agent benötigt wird.
++ Somit kann man auch Klassen mit `@Configurable` annotieren, wenn sie keine Spring Beans
+  sondern z.B. Entities sind. Innerhalb dieser Klassen können somit `@Autowired`, `@PreAuthorize` etc. verwendet werden.
+  
 ### HTTP-Server
 + Der Server läuft auf `localhost:8080`.
 + Auf `http://localhost:8080/index.html` wird ein Hinweistext ausgeliefert.

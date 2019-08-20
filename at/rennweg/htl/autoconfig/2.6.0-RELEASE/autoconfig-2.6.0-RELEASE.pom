@@ -8,12 +8,12 @@
 	<packaging>jar</packaging>
 
 	<name>Autokonfiguration</name>
-	<description>Spring Boot-Autokonfiguration für SEW MEDT 2018/19</description>
+	<description>Spring Boot-Autokonfiguration für SEW MEDT 2019/20</description>
 
 	<parent>
 		<groupId>at.rennweg.htl</groupId>
 		<artifactId>spring-boot</artifactId>
-		<version>1.4.0-RELEASE</version>
+		<version>1.5.0-RELEASE</version>
 		<relativePath>parent/pom.xml</relativePath>
 	</parent>
 

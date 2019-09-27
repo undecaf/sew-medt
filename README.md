@@ -67,7 +67,7 @@ akzeptiert.
 
 #### Anmeldung über OAuth2
 Die OAuth2-Provider `github`, `google`, `facebook`,
-`okta` und `microsoft` (Azure Active Directory) werden unterstützt. Die Voraussetzungen sind
+`okta`, `microsoft` und `azure` (Azure Active Directory) werden unterstützt. Die Voraussetzungen sind
 dieselben wie für die 
 [Anmeldung mit Benutzernamen und Passwort](#anmeldung-mit-benutzernamen-und-passwort).
 
@@ -87,7 +87,8 @@ zur Verfügung.
 + Alle _Pfade_ sind ohne Authentifizierung zugänglich, d.h. nur _Methoden_ 
 können mit `@PreAuthorize` abgesichert werden.
 + Um `@PreAuthorize` in einer Klasse (z.B. Entity) zu verwenden, die kein Spring-Bean ist,
-muss diese mit `@Configurable` annotiert werden.
+muss diese mit `@Configurable` annotiert werden, und sie muss sich inner- oder unterhalb 
+des Pakets `server` befinden.
 + Auditing: stehen Benutzer in einer `@OneToMany`-Beziehung 
 zu einer anderen `@Entity`, so können sie dort mit `@CreatedBy` 
 oder `@LastModifiedBy` annotiert werden. 

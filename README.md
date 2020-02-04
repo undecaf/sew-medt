@@ -77,8 +77,8 @@ Anmeldung mit Benutzernamen und Passwort:
 + Den Authentifizierungsvorgang startet man durch ein `GET` auf 
 `/oauth2/authorization/{provider}`. Daraufhin wird der Browser zur Anmeldeseite
 des OAuth2-Providers umgeleitet.
-+ Nach erfolgreicher Authentifizierung wird der ursprüngliche `GET`-Request schließlich
-auf den im Property `sew.oauth2-login-success` angegebenen Pfad umgeleitet.
++ Nach der Authentifizierung wird temporär auf `/login/oauth2/code/{provider}` umgeleitet.
++ Abschließend wird der ursprüngliche `GET`-Request auf den im Property `sew.oauth2-login-success` angegebenen Pfad umgeleitet (redirect URI).
 + Nach der _ersten_ erfolgreichen Authentifizierung wird eine Benutzer-Entity im 
 `UserInfoRepository` gespeichert. Diese Entity steht als `principal` in `@PreAuthorize`
 zur Verfügung.

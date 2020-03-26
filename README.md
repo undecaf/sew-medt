@@ -16,14 +16,19 @@ und die verfügbaren Spring Boot Starter. Dies sind:
 + Configuration Processor
 
 Als weitere Abhängigkeiten sind enthalten:
-+ Spring Session
-+ AspectJ für „Load-time weaving“
-+ OAuth2-Client für Microsoft Azure AD
-+ Jirutka Collection Validators
-+ JDBC-Treiber für H2, PostgreSQL, MS SQL Server, MariaDB und MySQL 
-+ Embedded H2-Datenbank
-+ Hibernate
-+ Ehcache
++ [Spring Session](https://spring.io/projects/spring-session)
++ [AspectJ](https://www.eclipse.org/aspectj/) für „Load-time weaving“
++ [OAuth2-Client für Microsoft Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
++ [Jirutka Collection Validators](https://github.com/jirutka/validator-collection)
++ [Project Lombok](https://projectlombok.org/)
++ JDBC-Treiber für [H2](https://www.h2database.com/), 
+  [PostgreSQL](https://www.postgresql.org/),
+  [MS SQL Server](https://www.microsoft.com/en-us/sql-server/default.aspx), 
+  [MariaDB](https://mariadb.org/) und
+  [MySQL](https://www.mysql.com/) 
++ Embedded [H2-Datenbank](https://www.h2database.com/)
++ [Hibernate ORM](https://hibernate.org/)
++ [Ehcache](https://www.ehcache.org/)
 
 Plugins:
 + Spring Boot Maven Plugin

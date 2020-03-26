@@ -14,6 +14,7 @@ und die verfügbaren Spring Boot Starter. Dies sind:
 + OAuth2-Client für Github, Google, Facebook und Okta
 + Test
 + Configuration Processor
++ Developer Tools
 
 Als weitere Abhängigkeiten sind enthalten:
 + [Spring Session](https://spring.io/projects/spring-session)

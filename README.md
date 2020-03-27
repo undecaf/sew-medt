@@ -4,7 +4,7 @@ mit den folgenden Artefakten:
 
 ## spring-boot
 Globales Parent-POM für alle Projekte; enthält keinen Code, sondern definiert die Spring Boot-Version
-und die verfügbaren Spring Boot Starter. Dies sind:
+(2.1.13) und die verfügbaren Spring Boot Starter. Dies sind:
 + Web
 + JPA
 + REST Repositories
@@ -18,7 +18,8 @@ und die verfügbaren Spring Boot Starter. Dies sind:
 
 Als weitere Abhängigkeiten sind enthalten:
 + [Spring Session](https://spring.io/projects/spring-session)
-+ [AspectJ](https://www.eclipse.org/aspectj/) für „Load-time weaving“
++ [AspectJ](https://www.eclipse.org/aspectj/)
+  für [„Load-time weaving“](http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html)
 + [OAuth2-Client für Microsoft Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
 + [Jirutka Collection Validators](https://github.com/jirutka/validator-collection)
 + [Project Lombok](https://projectlombok.org/)
@@ -30,6 +31,8 @@ Als weitere Abhängigkeiten sind enthalten:
 + Embedded [H2-Datenbank](https://www.h2database.com/)
 + [Hibernate ORM](https://hibernate.org/)
 + [Ehcache](https://www.ehcache.org/)
++ [JUnit5](https://junit.org/junit5/)
++ [Mockito](https://site.mockito.org/)
 
 Plugins:
 + Spring Boot Maven Plugin

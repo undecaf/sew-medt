@@ -4,7 +4,7 @@ mit den folgenden Artefakten:
 
 ## spring-boot
 Globales Parent-POM für alle Projekte; enthält keinen Code, sondern definiert die Spring Boot-Version
-(2.1.13) und die verfügbaren Spring Boot Starter. Dies sind:
+(2.5.3) und die verfügbaren Spring Boot Starter. Dies sind:
 + Web
 + JPA
 + REST Repositories
@@ -14,14 +14,11 @@ Globales Parent-POM für alle Projekte; enthält keinen Code, sondern definiert 
 + OAuth2-Client für Github, Google, Facebook und Okta
 + Test
 + Configuration Processor
-+ Developer Tools
 
 Als weitere Abhängigkeiten sind enthalten:
 + [Spring Session](https://spring.io/projects/spring-session)
 + [AspectJ](https://www.eclipse.org/aspectj/)
-  für [„Load-time weaving“](http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html)
 + [OAuth2-Client für Microsoft Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow)
-+ [Jirutka Collection Validators](https://github.com/jirutka/validator-collection)
 + [Project Lombok](https://projectlombok.org/)
 + JDBC-Treiber für [H2](https://www.h2database.com/), 
   [PostgreSQL](https://www.postgresql.org/),
@@ -33,6 +30,7 @@ Als weitere Abhängigkeiten sind enthalten:
 + [Ehcache](https://www.ehcache.org/)
 + [JUnit5](https://junit.org/junit5/)
 + [Mockito](https://site.mockito.org/)
++ [WireMock](http://wiremock.org/)
 
 Plugins:
 + Spring Boot Maven Plugin
@@ -42,7 +40,7 @@ Plugins:
 Wird dieses Artefakt im POM eines Projekts als Abhängigkeit angegeben, so werden 
 folgende Spring Boot-Einstellungen wirksam:
 
-### Load-time weaving (LTW) mit AspectJ
+### [Load-time weaving (LTW)]((http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html))
 + LTW wird auf Klassen inner- oder unterhalb des Pakets `server`
   angewendet, ohne dass ein externer Instrumentation-Agent benötigt wird.
 + Somit kann man auch Klassen mit `@Configurable` annotieren, wenn sie keine Spring Beans
@@ -57,7 +55,7 @@ folgende Spring Boot-Einstellungen wirksam:
 #### Anmeldung mit Benutzernamen und Passwort
 Voraussetzungen:
 1. Man muss mit der Benutzer-`@Entity` das Interface `UserInfo` implementieren.
-1. Das zugehörige REST-Repository muss man von `UserInfoRepository<T>` ableiten statt von
+1. Das zugehörige REST-Repository muss man von `UserInfoRepository<T, ID>` ableiten statt von
 z.B. `PagingAndSortingRepository<T,ID>`.
 
 Dies bewirkt:
@@ -80,7 +78,7 @@ Die OAuth2-Provider `github`, `google`, `facebook`,
 dieselben wie für die 
 [Anmeldung mit Benutzernamen und Passwort](#anmeldung-mit-benutzernamen-und-passwort).
 
-Die Konfiguration erfolgt über die in `src/main/resources/application-oauth2.properties`
+Die Konfiguration erfolgt über die in `src/main/resources/application-oauth2.properties.template`
 beispielhaft angeführten Properties. Dies bewirkt folgende Unterschiede gegenüber der 
 Anmeldung mit Benutzernamen und Passwort:
 + Den Authentifizierungsvorgang startet man durch ein `GET` auf 
@@ -105,17 +103,17 @@ Dazu muss die andere Entity zusätzlich mit
 `@EntityListeners(AuditingEntityListener.class)` annotiert werden.
 
 ### Datenbankanbindung
-In `src/main/resources/application-db.properties` sind die Properties aufgezählt, die
+In `src/main/resources/application-db.properties.template` sind die Properties aufgezählt, die
 für die Anbindung diverser Datenbanken benötigt werden. 
 
 ### REST-API und CORS
 Das REST-API ist unter dem Pfad `/api`erreichbar (Property `spring.data.rest.base-path`).
 
 Um CORS zu ermöglichen, gibt man alle `Allowed-Origins` als Liste in 
-`sew.allowed-origins` an. Andernfalls wird die SOP erzwungen. 
+`sew.allowed-origins` an. Andernfalls werden `XMLHttpRequest`s in Browsern wegen SOP zumeist scheitern. 
 
 ### Profile
 + `logging` erzeugt ausführliche Debugging-Protokolle.
-+ `tuning` optimiert Datenbankzugriffe; jede cachebare `@Entity` 
++ `optimize` optimiert Datenbankzugriffe; jede cachebare `@Entity` 
 muss zusätzlich mit `@javax.persistence.Cacheable` annotiert werden.
 

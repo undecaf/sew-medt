@@ -40,11 +40,13 @@ Plugins:
 Wird dieses Artefakt im POM eines Projekts als Abhängigkeit angegeben, so werden 
 folgende Spring Boot-Einstellungen wirksam:
 
-### [Load-time weaving (LTW)]((http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html))
-+ LTW wird auf Klassen inner- oder unterhalb des Pakets `server`
-  angewendet, ohne dass ein externer Instrumentation-Agent benötigt wird.
-+ Somit kann man auch Klassen mit `@Configurable` annotieren, wenn sie keine Spring Beans
-  sondern z.B. Entities sind. Innerhalb dieser Klassen können somit `@Autowired`, `@PreAuthorize` etc. verwendet werden.
+### Dependency Injection in Beans, die nicht von Spring verwaltet werden
++ `@Autowired` kann man auch in Klassen verwenden, die keine Spring-Beans sind. 
+  Dazu annotiert man diese Klassen mit `@Configurable`. Dies funktioniert für
+  alle Klassen inner- oder unterhalb der Paket `server`, `repositories`
+  und `at.rennweg.htl.sew`.
++ Für dieses Verhalten wird [Load-time weaving (LTW)]((http://www.eclipse.org/aspectj/doc/released/devguide/ltw.html))
+  verwendet, ohne dass ein externer Instrumentation-Agent benötigt wird.
   
 ### HTTP-Server
 + Der Server läuft auf `localhost:8080`.
@@ -55,8 +57,13 @@ folgende Spring Boot-Einstellungen wirksam:
 #### Anmeldung mit Benutzernamen und Passwort
 Voraussetzungen:
 1. Man muss mit der Benutzer-`@Entity` das Interface `UserInfo` implementieren.
-1. Das zugehörige REST-Repository muss man von `UserInfoRepository<T, ID>` ableiten statt von
-z.B. `PagingAndSortingRepository<T,ID>`.
+2. Das zugehörige REST-Repository muss man _zusätzlich_ auch von `UserInfoRepository<T, ID>` ableiten, z.B.
+   ```java
+   @RepositoryRestResource
+   public interface MyUserRepository
+       extends PagingAndSortingRepository<MyUser, Long>, UserInfoRepository<MyUser, Long> {
+   }
+   ```
 
 Dies bewirkt:
 + Die Anmeldung erfolgt durch `POST` von `username` und
@@ -93,9 +100,6 @@ zur Verfügung.
 ### Autorisierung
 + Alle _Pfade_ sind ohne Authentifizierung zugänglich, d.h. nur _Methoden_ 
 können mit `@PreAuthorize` abgesichert werden.
-+ Um `@PreAuthorize` in einer Klasse (z.B. Entity) zu verwenden, die kein Spring-Bean ist,
-muss diese mit `@Configurable` annotiert werden, und sie muss sich inner- oder unterhalb 
-des Pakets `server` befinden.
 + Auditing: stehen Benutzer in einer `@OneToMany`-Beziehung 
 zu einer anderen `@Entity`, so können sie dort mit `@CreatedBy` 
 oder `@LastModifiedBy` annotiert werden. 

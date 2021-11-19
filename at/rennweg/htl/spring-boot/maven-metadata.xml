@@ -3,7 +3,7 @@
   <groupId>at.rennweg.htl</groupId>
   <artifactId>spring-boot</artifactId>
   <versioning>
-    <release>3.1.4-RELEASE</release>
+    <release>3.2.0-RELEASE</release>
     <versions>
       <version>1.0.0-RELEASE</version>
       <version>1.0.1-RELEASE</version>
@@ -24,7 +24,8 @@
       <version>3.1.2-RELEASE</version>
       <version>3.1.3-RELEASE</version>
       <version>3.1.4-RELEASE</version>
+      <version>3.2.0-RELEASE</version>
     </versions>
-    <lastUpdated>20210903210907</lastUpdated>
+    <lastUpdated>20211119193841</lastUpdated>
   </versioning>
 </metadata>

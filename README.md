@@ -34,7 +34,8 @@ Als weitere Abhängigkeiten sind enthalten:
 
 Plugins:
 + Spring Boot Maven Plugin
-+ Keytool Maven Plugin
++ Jib Maven Plugin (Goals `jib:dockerBuild` und `jib:build`)
++ Keytool Maven Plugin (Goal `keytool:generateKeyPair`)
 
 ## autoconfig
 Wird dieses Artefakt im POM eines Projekts als Abhängigkeit angegeben, so werden 

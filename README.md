@@ -1,3 +1,5 @@
+## :warning: Dieses Projekt wird nicht mehr gewartet
+
 # Spring Boot-Konfiguration für den SEW-Unterricht in MEDT an der HTL3R
 Maven-Repository für die Grundkonfiguration von Spring Boot-Unterrichtsprojekten
 mit den folgenden Artefakten:
